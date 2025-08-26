@@ -1,1 +1,1 @@
-{"root":["./src/utils.ts","./src/db.ts","./src/index.ts","./src/middleware.ts","./src/tempcoderunnerfile.ts"],"errors":true,"version":"5.9.2"}
+{"root":["./src/utils.ts","./src/db.ts","./src/index.ts","./src/middleware.ts","./src/tempcoderunnerfile.ts"],"version":"5.9.2"}

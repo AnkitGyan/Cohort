@@ -55,7 +55,7 @@ app.post("/api/v1/signup", async (req: Request, res: Response) => {
   });
 });
 
-app.post("/api/v1/signin", async (req: any, res: any) => {
+app.post("/api/v1/signin", async (req: Request, res: Response) => {
   const signinSchema = z.object({
     email: z.string(),
     password: z.string().min(1, "Password is required"),
@@ -155,33 +155,38 @@ app.post(
 );
 
 /*Get Content by Sharable Link */
-app.get(
-  "/api/v1/brainly/:shareLink",
-  async (req: Request, res: Response) => {
+app.get("/api/v1/brainly/:shareLink", async (req: Request, res: Response) => {
+  try {
     const { shareLink } = req.params;
 
-    const link = await LinksModel.findOne({ hash: shareLink }).populate(
-      "userId",
-    );
+    const link = await LinksModel.findOne({ hash: shareLink }).populate("userId");
 
     if (!link) {
       return res.status(404).json({ message: "Invalid or expired link" });
     }
 
+    // fetch user without password
+    const user = await userModel.findById(link.userId).select("-password");
+
+    // fetch all content of that user
     const content = await ContentModel.find({ userId: link.userId });
 
     res.json({
-      user: link.userId,
+      user,
       content,
     });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
-);
+});
+
 
 
 
 
 mongoose
-  .connect("mongodb+srv://ankit0525252:OZWFTUPkd3WwQUVY@cluster0.gv9iuj9.mongodb.net/brainly-app'") 
+  .connect("mongodb+srv://ankit0525252:OZWFTUPkd3WwQUVY@cluster0.gv9iuj9.mongodb.net/brainly-app") 
   .then(() => {
     app.listen(8080, () => {
       console.log("App is listening on port 8080");
