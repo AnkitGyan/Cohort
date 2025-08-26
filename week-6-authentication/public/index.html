@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Auth Website</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <h2>Signup</h2>
+  <div>
+    <label for="signup-user">Username</label>
+    <input type="text" id="signup-user" placeholder="Username"/>
+    <label for="signup-pass">Password</label>
+    <input type="password" id="signup-pass" placeholder="Password"/>
+    <button onclick="signup()">Signup</button>
+  </div>
+
+  <h2>Signin</h2>
+  <div>
+    <label for="signin-user">Username</label>
+    <input type="text" id="signin-user" placeholder="Username"/>
+    <label for="signin-pass">Password</label>
+    <input type="password" id="signin-pass" placeholder="Password"/>
+    <button onclick="signin()">Signin</button>
+  </div>
+
+  <h2>User Information</h2>
+  <div class="userInfo">Not signed in</div>
+
+  <div>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    async function signup() {
+      const username = document.querySelector("#signup-user").value;
+      const password = document.querySelector("#signup-pass").value;
+
+      try {
+        await axios.post("http://localhost:8080/signup", {
+          username,
+          password,
+        });
+        alert("Signup successful!");
+      } catch (error) {
+        alert("Signup failed: " + error.response?.data?.message || error.message);
+      }
+    }
+
+    async function signin() {
+      const username = document.querySelector("#signin-user").value;
+      const password = document.querySelector("#signin-pass").value;
+
+      try {
+        const response = await axios.post("http://localhost:8080/signin", {
+          username,
+          password,
+        });
+
+        localStorage.setItem("token", response.data.token);
+        document.querySelector(".userInfo").textContent = `Welcome, ${username}!`;
+        alert("Signin successful!");
+      } catch (error) {
+        alert("Signin failed: " + error.response?.data?.message || error.message);
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      document.querySelector(".userInfo").textContent = "Not signed in";
+      alert("Logged out successfully");
+    }
+
+    async function getUserInformation(){
+      axios.get("http://localhost/me",{
+        header : {
+          token : localStorage.getItem("token")
+        }
+      })
+    }
+    getUserInformation();
+  </script>
+</body>
+</html>
