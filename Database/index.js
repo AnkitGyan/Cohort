@@ -4,7 +4,6 @@ const {UserModel, TodoModel} = require('./db');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const { default: mongoose } = require('mongoose');
-const JWT_SECRET = "ankii999999";
 const bcrypt = require("bcrypt");
 const { z, parse } = require('zod');
 
