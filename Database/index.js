@@ -8,7 +8,7 @@ const JWT_SECRET = "ankii999999";
 const bcrypt = require("bcrypt");
 const { z, parse } = require('zod');
 
-mongoose.connect('mongodb+srv://ankit0525252:OZWFTUPkd3WwQUVY@cluster0.gv9iuj9.mongodb.net/Todos-app-databases')
+mongoose.connect('')
 .then(() => console.log("Connected to MongoDB"))
 .catch((err) => console.error("MongoDB connection error:", err));
 
