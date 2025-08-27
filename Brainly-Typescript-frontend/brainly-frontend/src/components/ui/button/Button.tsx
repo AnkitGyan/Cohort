@@ -27,15 +27,13 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   return (
-    <span>
     <button
       onClick={onClick}
-      className={`${variantClasses[variant]} ${sizeClasses[size]} flex  gap-2 font-medium transition cursor-pointer`}
+      className={`${variantClasses[variant]} ${sizeClasses[size]} flex  gap-2 font-light items-center transition cursor-pointer `}
     >
       {startIcon && <span className="icon-start">{startIcon}</span>}
       {text}
       {endIcon && <span className="icon-end">{endIcon}</span>}
     </button>
-    </span>
   );
 };

@@ -9,7 +9,7 @@ import bcrypt from "bcrypt";
 import cors from "cors";
 import userMiddleware from "./middleware.js";
 import { ContentModel } from "./db.js";
-const JWT_SECRET = "ANKIT123";
+const JWT_SECRET = 123;
 
 const app = express();
 
@@ -186,7 +186,11 @@ app.get("/api/v1/brainly/:shareLink", async (req: Request, res: Response) => {
 
 
 mongoose
+<<<<<<< HEAD
   .connect("mongodb+srv://ankit0525252:OZWFTUPkd3WwQUVY@cluster0.gv9iuj9.mongodb.net/brainly-app") 
+=======
+  .connect("") 
+>>>>>>> 29e7a6d180c249392804f5684728872f5115b4f7
   .then(() => {
     app.listen(8080, () => {
       console.log("App is listening on port 8080");

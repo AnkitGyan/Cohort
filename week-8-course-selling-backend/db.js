@@ -6,7 +6,7 @@ console.log("connecting to mongodb");
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb+srv://ankit0525252:OZWFTUPkd3WwQUVY@cluster0.gv9iuj9.mongodb.net/coursera-app-databases')
+    await mongoose.connect('')
     console.log('MongoDB connected successfully');
   } catch (err) {
     console.error('MongoDB connection failed:', err.message);
