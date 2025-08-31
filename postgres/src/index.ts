@@ -9,14 +9,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended : true}));
 app.use(cors());
 
-const pgClient = new Client({
-  user: "neondb_owner",
-  password: "npg_oEgqXRDe4H2x",
-  port : 5432,
-  host: "ep-young-glitter-adlxr4pn-pooler.c-2.us-east-1.aws.neon.tech",
-  database:"neondb",
-  ssl: true
-});
 
 async function main() {
   try {
