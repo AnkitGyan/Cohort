@@ -25,13 +25,6 @@ const handler = NextAuth({
       },
     }),
   ],
-  pages: {
-    signIn: "/signin", // Optional custom sign-in page
-  },
-  session: {
-    strategy: "jwt", // or "database" if using DB sessions
-  },
-  secret: process.env.NEXTAUTH_SECRET, // must be set in .env
 })
 
 export { handler as GET, handler as POST }
