@@ -44,7 +44,7 @@ adminRouter.post("/signup", async (req, res) => {
 adminRouter.post("/signin", async (req, res) => {
   const signinSchema = z.object({
     email: z.string().email(),
-    password: z.string().min(1, "Password is required"),
+    password: z.string().min(6, "Password is required"),
   });
 
   const result = signinSchema.safeParse(req.body);
