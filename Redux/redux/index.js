@@ -1,6 +1,8 @@
 const redux = require("redux");
 const createStore = redux.createStore;
+const reduxLogger = require("redux-logger")
 const combinereducers = redux.combineReducers;
+const logger = reduxLogger.createLogger();
 
 const initialBookState = {
   numberOfBooks : 200,
@@ -63,6 +65,10 @@ function buy_book(){
      }
  };
 
+//apply middleware
+
+const applyMiddleware = redux.applyMiddleware;
+
  const rootReducer = combinereducers({
   books : bookReducer,
   models : modelReducer
@@ -70,11 +76,11 @@ function buy_book(){
 
 
  //store
- const store = createStore(rootReducer);
+ const store = createStore(rootReducer, applyMiddleware(logger));
 
  console.log("Initial state of our application :", store.getState());
  const unsubscribe = store.subscribe(()=>{
-  console.log("Updated value of the store is :", store.getState());
+  // console.log("Updated value of the store is :", store.getState());
  });
 // unsubscribe();
  store.dispatch(buy_book());
