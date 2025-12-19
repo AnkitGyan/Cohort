@@ -1,10 +1,15 @@
 const redux = require("redux");
 const createStore = redux.createStore;
+const combinereducers = redux.combineReducers;
 
-const initialState = {
+const initialBookState = {
   numberOfBooks : 200,
+};
+
+const initialModelState = {
   numberofModels : 30
 };
+
 
 //action type
 const BUY_BOOK = "BUY_BOOK";
@@ -21,6 +26,7 @@ function buy_book(){
   }
  }
 
+
  function buy_model(){
   return{
     type : BUY_MODEL,
@@ -31,7 +37,7 @@ function buy_book(){
   }
  }
 
- const reducer = (state = initialState, action)=>{
+ const bookReducer = (state = initialBookState, action)=>{
      switch(action.type){
      case BUY_BOOK : {
       return {
@@ -39,6 +45,14 @@ function buy_book(){
         numberOfBooks : state.numberOfBooks - 1
       };
      }
+     default : 
+        return state;
+     }
+ };
+
+ 
+ const modelReducer = (state = initialModelState, action)=>{
+     switch(action.type){
      case BUY_MODEL : 
      return {
       ...state,
@@ -49,8 +63,14 @@ function buy_book(){
      }
  };
 
+ const rootReducer = combinereducers({
+  books : bookReducer,
+  models : modelReducer
+ })
+
+
  //store
- const store = createStore(reducer);
+ const store = createStore(rootReducer);
 
  console.log("Initial state of our application :", store.getState());
  const unsubscribe = store.subscribe(()=>{
