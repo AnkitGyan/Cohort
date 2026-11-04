@@ -6,7 +6,6 @@ const numCPUs = os.cpus().length;
 
 // ⏱️ start time (only once in master)
 const startTime = process.hrtime.bigint();
-
 if (cluster.isPrimary) {
   console.log(`Master PID: ${process.pid}`);
   console.log(`CPU cores: ${numCPUs}`);

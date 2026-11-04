@@ -1,0 +1,73 @@
+/* Root container */
+.root {
+  height: 100vh;
+  background: skyblue;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Snowflake */
+i {
+  position: absolute;
+  top: -50px;
+  left: calc(100% * var(--i));
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+
+  animation: falling linear infinite;
+
+  background-image:
+    linear-gradient(180deg, transparent 40%, white 40% 60%, transparent 60%),
+    linear-gradient(90deg, transparent 40%, white 40% 60%, transparent 60%),
+    linear-gradient(45deg, transparent 43%, white 43% 57%, transparent 57%),
+    linear-gradient(135deg, transparent 43%, white 43% 57%, transparent 57%);
+}
+
+/* Random positioning */
+i:nth-child(odd) {
+  left: 10%;
+  animation-duration: 5s;
+}
+
+i:nth-child(even) {
+  left: 80%;
+  animation-duration: 8s;
+}
+
+/* Falling animation */
+@keyframes falling {
+  0% {
+    transform: translateY(-50px) rotate(0deg);
+  }
+
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+/* Center content */
+.animation {
+  position: relative;
+  z-index: 10;
+
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Text animation */
+.fadeIn {
+  opacity: 1;
+  transform: translateY(0);
+  transition: 0.5s;
+}
+
+.fadeOut {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 0.5s;
+}
