@@ -16,11 +16,11 @@ wss.on('connection', (ws)=>{
     console.log("New client connected");
 
     let messageCount = 0;
-    ws.on('message', (message)=>{
+    ws.on('message', (message, isBinary)=>{
         //BroadCasting messag to all connected clients
         wss.clients.forEach((client)=>{
             if(client.readyState === websocket.OPEN){
-                client.send(message);
+                client.send(message, { binary: isBinary });
                 messageCount++;
             }
             console.log(`Message count: ${messageCount}`);

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 function App() {
  const [socket, setSocket] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState("");
 
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:3000');
@@ -13,10 +13,14 @@ function App() {
       setSocket(ws);
     };
 
-    ws.onmessage = (event) => {
-      console.log(`Message from server: ${event.data}`);
-
-      setMessages((prev) => [...prev, event.data]);
+   ws.onmessage = async (event) => {
+    let data = event.data;
+    if (data instanceof Blob) {
+        console.log(data);
+        data = await data.text();
+    }
+    console.log("Message from server:", data);
+    setMessages((prev) => [...prev, data]);
     };
 
     ws.onerror = (error) => {
@@ -48,13 +52,13 @@ function App() {
 
       <h3>Messages from server:</h3>
 
-      {messages.length > 0 ? (
-        messages.map((m, i) => (
-          <p key={i}>{m}</p>
-        ))
+      {messages ? (
+        <p>{messages}</p> 
       ) : (
         <p>No messages from server.</p>
       )}
+
+      <button onClick={()=> socket.send("Hello from React APP!")}>Send Message</button>
     </div>
   );
 }
